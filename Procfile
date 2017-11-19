@@ -1,1 +1,1 @@
-web: ./build/app.bundle.js
+web: build/app.bundle.js
