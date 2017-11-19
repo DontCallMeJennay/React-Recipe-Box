@@ -1,0 +1,208 @@
+body {
+  background: linear-gradient(to bottom, #EFD, white 50%, #EFD);
+  font-family: "Rokkitt", serif;
+  min-height: 100vh;
+}
+
+main {
+  margin: 2% 5%;
+}
+
+header {
+  padding: 1em;
+}
+
+h1,
+h2,
+h3,
+button,
+legend,
+input[type="submit"] {
+  font-family: "Itim", cursive;
+}
+
+h2 {
+  font-size: 1.25em;
+  padding: 0 0.5em;
+}
+
+h3 {
+  font-size: 1.15em;
+}
+
+ul {
+  padding: 0 1em;
+}
+
+li {
+  list-style: none;
+  padding: 5px;
+}
+
+section {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+form {
+  background-color: #ffe0c2;
+  background-size: cover;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 2% 5%;
+  width: 100%;
+}
+form fieldset {
+  background-color: white;
+  margin: 5px 1vw;
+  border: 1px solid black;
+}
+form h2 {
+  padding: 5px;
+  border: 3px double black;
+  background-color: white;
+  margin: 1vw;
+  text-align: center;
+}
+form label {
+  margin: 5px 1%;
+  padding: 5px;
+  display: inline-block;
+  width: 20%;
+}
+form legend {
+  background-color: white;
+  border: 3px double black;
+  font-size: 1.2rem;
+  padding: 5px;
+}
+form input[type="radio"] {
+  margin: 5px 1%;
+  padding: 5px;
+}
+form input[type="text"],
+form input[type="number"] {
+  width: 70%;
+  margin: 5px 1%;
+  padding: 5px;
+}
+form input[type="submit"] {
+  margin: 2% auto;
+  padding: 0.5em;
+}
+
+button,
+input[type="submit"] {
+  background-color: #062;
+  border: 3px double #030;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  margin: 0 1vw;
+  padding: 0.5em;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+button:hover,
+button:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  background-color: #44aa66;
+  border-color: white;
+}
+
+textarea {
+  margin: 0 auto;
+  min-height: 7em;
+  width: 97%;
+}
+
+.remove {
+  float: right;
+  margin: 10px;
+}
+
+.radio label {
+  margin-left: 0;
+  padding-left: 0;
+  margin-right: 1em;
+  width: auto;
+}
+
+.read-recipe {
+  background-color: white;
+  box-shadow: 2px 2px #515152;
+  margin: 2%;
+  padding: 0 2vw;
+  width: 100%;
+}
+.read-recipe h3 {
+  border-bottom: 3px double black;
+}
+.read-recipe h4 {
+  margin: 1em;
+}
+.read-recipe ul {
+  margin: 0;
+}
+.read-recipe p {
+  margin: 1em;
+}
+
+.recipe-box {
+  min-width: 30vw;
+}
+
+.category-header {
+  cursor: pointer;
+  background-color: #fff1d3;
+  margin: 0 1vw;
+}
+.category-header h2 {
+  background-color: #edbf93;
+  border: 1px solid black;
+  box-shadow: 2px 2px #848485;
+  margin: 2px 0;
+  padding: 0.5em;
+  padding-left: 1em;
+  transition: background-color 0.25s;
+}
+.category-header h2:hover,
+.category-header h2:focus {
+  background-color: #ba8c60;
+}
+.category-header ul {
+  margin: 0;
+  padding-left: 2em;
+  max-height: 30em;
+}
+.category-header li {
+  border-bottom: 1px inset white;
+  font-size: 1.2em;
+  padding: 0.5em;
+  max-height: 2em;
+}
+.category-header li:hover,
+.category-header li:focus {
+  background-color: #9d4e3f;
+  color: white;
+  width: 100%;
+}
+.category-header ul,
+.category-header li {
+  opacity: 1;
+  transition: opacity 0.25s, max-height 0.25s, background-color 0.25s, color 0.25s, padding 0.25s;
+}
+
+.collapsed ul,
+.collapsed li {
+  padding: 0;
+  max-height: 0;
+  opacity: 0;
+}
+
+.highlight h2 {
+  background-color: #db7b50;
+}

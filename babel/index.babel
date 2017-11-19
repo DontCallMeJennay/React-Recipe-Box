@@ -1,0 +1,456 @@
+const CATEGORIES = ["Breakfast ", "Lunch", "Dinner", "Snacks", "Desserts"];
+const RECIPES = [
+  [
+    {
+      cat: 0,
+      id: 0,
+      name: "Scrambled eggs",
+      prep: "5 minutes",
+      serves: 1,
+      ingredients: ["2 raw eggs", "1/4 cup milk", "salt and pepper to taste"],
+      instructions:
+        "Crack eggs into pan, stir in milk, and stir over medium heat until eggs are set. Season to taste and serve hot."
+    },
+    {
+      cat: 0,
+      id: 1,
+      name: "Fried bacon",
+      prep: "10 minutes",
+      serves: 1,
+      ingredients: ["4 strips bacon"],
+      instructions:
+        "Fry over low-medium heat (be patient!) until crispy but not crunchy. Serve with eggs."
+    }
+  ],
+  [
+    {
+      cat: 1,
+      id: 2,
+      name: "Peanut butter sandwich",
+      prep: "5 minutes",
+      serves: 1,
+      ingredients: ["Crunchy peanut butter", "2 slices bread"],
+      instructions:
+        "Spread peanut butter thickly over bread. Slap together. Enjoy. Wash down with glass of milk."
+    },
+    {
+      cat: 1,
+      id: 3,
+      name: "Glass of milk",
+      prep: "10 seconds",
+      serves: 1,
+      ingredients: ["glass", "milk"],
+      instructions:
+        "Pour milk in glass. (Don't drink out of the carton, you heathen.) Drink to remove peanut butter from roof of mouth. "
+    }
+  ],
+  [
+    {
+      cat: 2,
+      id: 4,
+      name: "Pot roast with beans",
+      prep: "8-12 hours",
+      serves: 12,
+      ingredients: [
+        "3 lb chuck roast",
+        "1 lb dry pinto beans",
+        "1 quart beef broth",
+        "2 yellow onions",
+        "1 lb raw carrots",
+        "1 lb red potatoes",
+        "1 large parsnip",
+        "1 Tbsp minced garlic",
+        "salt and pepper to taste"
+      ],
+      instructions:
+        "(Beans may be omitted if you don't like them.)  Place beans in saucepan full of water, bring to rolling boil, and cook for ~5 minutes. Remove from heat, cover, and let sit for an hour. Season meat and roast in oven at 400' until well browned on outside. Drain beans and add to crockpot with onions and garlic. Add meat. Wash and chop remaining vegetables and place on top of meat. Pour beef broth over all. Close crock pot and cook on low heat until tender, 8-10 hours."
+    }
+  ],
+  [
+    {
+      cat: 3,
+      id: 5,
+      name: "Potato chips",
+      prep: "instant",
+      serves: "1",
+      ingredients: ["bag of potato chips"],
+      instructions: "Open. Eat. Don't get crumbs everywhere."
+    }
+  ],
+  [
+    {
+      cat: 4,
+      id: 6,
+      name: "Ben & Jerry's",
+      prep: "instant",
+      serves: "1",
+      ingredients: ["pint of ice cream"],
+      instructions: "Open. Eat. Guilt optional."
+    }
+  ]
+];
+
+class RecipeCategory extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { active: false };
+  }
+  toggle() {
+    this.setState({ active: !this.state.active });
+  }
+  render() {
+    let Classes = ["category-header"];
+    if (!this.state.active) {
+      Classes.push("collapsed");
+    } else {
+      Classes.push("highlight");
+    }
+    return (
+      <div className={Classes.join(" ")}>
+        <h2 onClick={e => this.toggle(e.target)}>{this.props.name} </h2>
+        <ul>
+          {this.props.recipes.map((recipe, index) => (
+            <li>
+              <a onClick={() => this.props.viewRecipe(recipe)}>{recipe.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+class RecipeBox extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="recipe-box">
+        <h1>My Recipe Box</h1>
+        <div className="edit">
+          <button onClick={() => this.props.editToggle()}>
+            Add New Recipe
+          </button>
+        </div>
+        {this.props.categories.map((cat, index) => (
+          <RecipeCategory
+            name={cat}
+            recipes={this.props.recipes[index]}
+            viewRecipe={this.props.passActive}
+          />
+        ))}
+      </div>
+    );
+  }
+}
+
+class RecipeCard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="read-recipe">
+        <h3>{this.props.activeRecipe.name}</h3>
+        <ul>
+          <li>Prep time: {this.props.activeRecipe.prep}</li>
+          <li>Servings: {this.props.activeRecipe.serves}</li>
+        </ul>
+        <h4>Ingredients </h4>
+        <ul>
+          {this.props.activeRecipe.ingredients.map(item => <li>{item}</li>)}
+        </ul>
+        <h4>Instructions</h4>
+        <p>{this.props.activeRecipe.instructions}</p>
+        <button
+          className="remove"
+          onClick={recipe => this.props.removeOld(this.props.activeRecipe)}
+        >
+          delete
+        </button>
+      </div>
+    );
+  }
+}
+RecipeCard.defaultProps = {
+  cat: 0,
+  id: 999,
+  name: "Placeholder recipe",
+  prep: "40 hours",
+  serves: 0,
+  ingredients: [
+    "A large bunch of React classes",
+    "1 Tbsp elbow grease",
+    "One dash of creativity",
+    "Liberal application of head to keyboard"
+  ],
+  instructions:
+    "Spicy jalapeno bacon ipsum dolor amet meatball beef ribs kielbasa occaecat ham hock incididunt dolor do ad et aliqua lorem dolore labore deserunt. Est meatball dolor kevin, eu ham hock elit burgdoggen. Laboris picanha dolore, sed occaecat duis pork. Mollit nostrud qui proident tongue aliquip pastrami tri-tip strip steak beef dolore adipisicing short ribs t-bone do. Mollit reprehenderit short loin short ribs ad esse ham frankfurter nostrud ea shankle rump. Cillum in ground round ball tip pastrami."
+};
+
+class AddNewRecipeForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cat: null,
+      id: this.props.rID,
+      name: "",
+      prep: "",
+      serves: 1,
+      ingredients: [],
+      instructions: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleRadio = this.handleRadio.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleRadio(e) {
+    let param = "cat";
+    let val = e.target.value;
+    let newState = { [param]: val };
+    this.setState(newState);
+  }
+
+  handleChange(e) {
+    let param = e.target.id;
+    let val = e.target.value;
+    let newState = { [param]: val };
+    this.setState(newState);
+  }
+  handleSubmit(e) {
+    this.props.addNew(e, this.state);
+    this.setState({
+      cat: null,
+      id: this.props.rID,
+      name: "",
+      prep: "",
+      serves: 1,
+      ingredients: [],
+      instructions: ""
+    });
+  }
+
+  render() {
+    return (
+      <section className="form">
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <h2>Add new recipe</h2>
+          <fieldset className="radio">
+            <legend>Recipe category</legend>
+            <input
+              type="radio"
+              id="0"
+              name="selectCategory"
+              value="0"
+              onChange={e => this.handleRadio(e)}
+            />
+            <label for="0">Breakfast</label>
+            <input
+              type="radio"
+              id="1"
+              name="selectCategory"
+              value="1"
+              onChange={e => this.handleRadio(e)}
+            />
+            <label for="1">Lunch</label>
+            <input
+              type="radio"
+              id="2"
+              name="selectCategory"
+              value="2"
+              onChange={e => this.handleRadio(e)}
+            />
+            <label for="2">Dinner</label>
+            <input
+              type="radio"
+              id="3"
+              name="selectCategory"
+              value="3"
+              onChange={e => this.handleRadio(e)}
+            />
+            <label for="3">Snacks</label>
+            <input
+              type="radio"
+              id="4"
+              name="selectCategory"
+              value="4"
+              onChange={e => this.handleRadio(e)}
+            />
+            <label for="4">Dessert</label>
+          </fieldset>
+          <fieldset className="display-as-table">
+            <legend>Recipe info</legend>
+            <label for="name">Recipe name: </label>
+            <input
+              id="name"
+              type="text"
+              value={this.state.name}
+              onChange={e => this.handleChange(e)}
+            />
+            <label for="prep">Prep time: </label>
+            <input
+              id="prep"
+              type="text"
+              value={this.state.prep}
+              onChange={e => this.handleChange(e)}
+            />
+            <label for="servings">No. of servings:</label>
+            <input
+              id="servings"
+              type="number"
+              min="1"
+              onChange={e => this.handleChange(e)}
+            />
+            <label for="ingredients">List of ingredients: </label>
+            <input
+              id="ingredients"
+              type="text"
+              placeholder="enter a comma-separated list"
+              value={this.state.ingredients}
+              onChange={e => this.handleChange(e)}
+            />
+          </fieldset>
+          <fieldset>
+            <legend>Preparation instructions</legend>
+            <textarea
+              className="steps"
+              id="instructions"
+              value={this.state.instructions}
+              onChange={e => this.handleChange(e)}
+            />
+          </fieldset>
+          <input
+            id="saveChanges"
+            type="submit"
+            value="update"
+            onClick={e => e.preventDefault}
+          />
+        </form>
+      </section>
+    );
+  }
+}
+AddNewRecipeForm.propTypes = {
+  cat: React.PropTypes.number.isRequired,
+  id: React.PropTypes.number.isRequired,
+  name: React.PropTypes.oneOf(["string", "number"]).isRequired,
+  prep: React.PropTypes.oneOf(["string", "number"]).isRequired,
+  serves: React.PropTypes.number.isRequired,
+  ingredients: React.PropTypes.arrayOf("string").isRequired,
+  instructions: React.PropTypes.string.isRequired
+};
+
+class Application extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recipes: RECIPES,
+      categories: CATEGORIES,
+      activeRecipe: RECIPES[0][0],
+      editing: true,
+      rID: 10
+    };
+
+    this.updateActive = this.updateActive.bind(this);
+    this.editState = this.editState.bind(this);
+    this.addRecipe = this.addRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
+    this.updateStorage = this.updateStorage.bind(this);
+  }
+  updateActive(recipe) {
+    this.setState({
+      activeRecipe: recipe,
+      editing: false
+    });
+  }
+  editState() {
+    this.setState({ editing: !this.state.editing });
+  }
+  addRecipe(e, data) {
+    e.preventDefault();
+    if (
+      data.cat &&
+      data.id &&
+      data.name &&
+      data.prep &&
+      data.serves &&
+      data.ingredients &&
+      data.instructions
+    ) {
+      this.setState({ rID: this.state.rID + 1 });
+      let i = data.cat;
+      let list = data.ingredients;
+      data.ingredients = list.split(",");
+      let addedRecipe = this.state.recipes;
+      addedRecipe[i].push(data);
+      this.setState({ recipes: addedRecipe });
+      this.updateStorage();
+    } else {
+      console.log(
+        data.cat,
+        data.id,
+        data.name,
+        data.preop,
+        data.serves,
+        data.ingredients,
+        data.instructions
+      );
+      alert("Please enter a value for all fields in the recipe form.");
+    }
+  }
+  deleteRecipe(data) {
+    if (confirm("Are you sure you want to delete " + data.name + "?")) {
+      let recipes = this.state.recipes;
+      let x = [];
+      recipes[data.cat].forEach(function(obj) {
+        if (obj.id !== data.id) {
+          x.push(obj);
+        }
+      });
+      recipes[data.cat] = x;
+      this.setState({
+        recipes: recipes,
+        activeRecipe: recipes[0][0]
+      });
+    }
+    this.updateStorage();
+  }
+  
+  updateStorage() {
+    window.localStorage.setItem("recipeData", this.state.recipes);
+    console.log(window.localStorage.recipeData);
+  }
+  render() {
+    let rightside = null;
+    if (this.state.editing) {
+      rightside = (
+        <AddNewRecipeForm addNew={this.addRecipe} rID={this.state.rID} />
+      );
+    } else {
+      rightside = (
+        <RecipeCard
+          activeRecipe={this.state.activeRecipe}
+          passActive={this.updateActive}
+          addNew={this.addRecipe}
+          removeOld={this.deleteRecipe}
+        />
+      );
+    }
+    return (
+      <main>
+        <section className="recipe-display">
+          <RecipeBox
+            recipes={this.state.recipes}
+            categories={this.state.categories}
+            passActive={this.updateActive}
+            editToggle={this.editState}
+          />
+          {rightside}
+        </section>
+      </main>
+    );
+  }
+}
+
+ReactDOM.render(<Application />, document.getElementById("react-container"));

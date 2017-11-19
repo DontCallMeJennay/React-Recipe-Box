@@ -1,0 +1,245 @@
+$skyblue: #b4daff;
+$slate: #515152;
+$peach: #db7b50;
+$sienna: #9d4e3f;
+$ltwood: #ffe0c2;
+$wood: #edbf93;
+$gray: #d6d4bd;
+$green: #062;
+
+body {
+  background: linear-gradient(to bottom, #efd, white 50%, #efd);
+  font-family: "Rokkitt", serif;
+  min-height: 100vh;
+}
+
+main {
+  margin: 2% 5%;
+}
+header {
+  padding: 1em;
+}
+h1,
+h2,
+h3,
+button,
+legend,
+input[type="submit"] {
+  font-family: "Itim", cursive;
+}
+h2 {
+  font-size: 1.25em;
+  padding: 0 0.5em;
+}
+h3 {
+  font-size: 1.15em;
+}
+
+ul {
+  padding: 0 1em;
+}
+
+li {
+  list-style: none;
+  padding: 5px;
+}
+
+section {
+  display: flex;
+  justify-content: space-around;
+}
+
+form {
+  background-color: $ltwood;
+  background-size: cover;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  fieldset {
+    background-color: white;
+    margin: 5px 1vw;
+    border: 1px solid black;
+  }
+  h2 {
+    padding: 5px;
+    border: 3px double black;
+    background-color: white;
+    margin: 1vw;
+    text-align: center;
+  }
+  label {
+    margin: 5px 1%;
+    padding: 5px;
+    display: inline-block;
+    width: 20%;
+  }
+  legend {
+    background-color: white;
+    border: 3px double black;
+    font-size: 1.2rem;
+    padding: 5px;
+  }
+  input[type="radio"] {
+    margin: 5px 1%;
+    padding: 5px;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 70%;
+    margin: 5px 1%;
+    padding: 5px;
+  }
+  input[type="submit"] {
+    margin: 2% auto;
+    padding: 0.5em;
+  }
+}
+
+button,
+input[type="submit"] {
+  background-color: $green;
+  border: 3px double #030;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  margin: 0 1vw;
+  padding: 0.5em;
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+button:hover,
+button:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  background-color: $green+#444;
+  border-color: $green+444;
+}
+
+textarea {
+  margin: 0 auto;
+  min-height: 7em;
+  width: 97%;
+}
+
+.remove {
+  float: right;
+  margin: 10px;
+}
+
+.radio {
+  label {
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 1em;
+    width: auto;
+  }
+}
+
+.read-recipe {
+  background-color: white;
+  border: 3px double #777;
+  padding: 5px;
+  transition: height 0.5s;
+  width: 100%;
+  h3 {
+    border-bottom: 3px double black;
+    margin: 1em;
+  }
+  h4 {
+    margin: 1em;
+  }
+  p {
+    margin: 1em;
+  }
+  ul {
+    margin: 1em;
+  }
+}
+
+.recipe-box {
+  margin: 2% 5%;
+}
+
+.category-header {
+  cursor: pointer;
+  margin: 0 1vw;
+  h2 {
+    background-color: $wood;
+    border: 1px solid black;
+    box-shadow: 2px 2px $slate + #333;
+    margin: 2px 0;
+    padding: 0.5em;
+    padding-left: 1em;    
+    transition: background-color 0.25s;
+  }
+  h2:hover,
+  h2:focus {
+    background-color: $wood - #333;
+  }
+  ul {
+    margin: 0;
+    padding-left: 2em;
+    max-height: 30em;
+  }
+  li {
+    background-color: $ltwood + #111;
+    border-bottom: 1px inset white;
+    font-size: 1.2em;
+    padding: 0.5em;
+    max-height: 2em;
+    text-decoration: underline;
+  }
+  li:hover,
+  li:focus {
+    background-color: $sienna;
+    color: white;
+  }
+
+  ul,
+  li {
+    opacity: 1;
+    transition: opacity 0.25s, max-height 0.25s, background-color 0.25s,
+      color 0.25s, padding 0.25s;
+  }
+}
+.collapsed {
+  ul,
+  li {
+    padding: 0;
+    max-height: 0;
+    opacity: 0;
+  }
+}
+.highlight {
+  h2 {
+    background-color: $peach;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.right {
+  float: right;
+  margin-bottom: 0.5em;
+}
+
+@media screen and (min-width: 1025px) {
+  main {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+
+  }
+  .recipe-box {
+    min-width: 30vw;
+    margin: 2% 5%;
+  }
+  .recipe-display {
+    margin: 0 auto;
+    width: 75vw;
+    justify-content: center;
+  }
+}
